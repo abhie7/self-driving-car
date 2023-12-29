@@ -15,6 +15,9 @@ class Car {
     if (controlType != "DUMMY") {
       // if the car is not a dummy
       this.sensor = new Sensor(this); // sensor object
+      this.brain = new NeuralNetwork(
+        [this.sensor.rayCount, 6, 4] // neural network object
+      );
     }
     this.controls = new Controls(controlType); // controls object
   }
@@ -30,6 +33,11 @@ class Car {
     if (this.sensor) {
       // if the car is not a dummy
       this.sensor.update(roadBorders, traffic); // update the sensor
+      const offsets = this.sensor.readings.map((s) =>
+        s == null ? 0 : 1 - s.offset
+      ); // get the offsets
+      const outputs = NeuralNetwork.feedForward(offsets, this.brain); // feed forward the offsets
+      console.log(outputs);
     }
   }
 
