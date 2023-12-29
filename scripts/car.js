@@ -10,6 +10,7 @@ class Car {
     this.maxSpeed = 3; // maximum speed of the car
     this.friction = 0.05; // friction of the car
     this.angle = 0; // angle of the car
+    this.damaged = false; // is the car damaged?
 
     this.sensor = new Sensor(this); // sensor object
     this.controls = new Controls(); // controls object
@@ -17,8 +18,50 @@ class Car {
 
   update(roadBorders) {
     // update the car's position (method)
-    this.#move();
+    if (!this.damaged) {
+      // if the car is damaged, it will stop moving
+      this.#move();
+      this.polygon = this.#createPolygon(); // create the polygon
+      this.damaged = this.#assessDamage(roadBorders); // assess the damage
+    }
     this.sensor.update(roadBorders);
+  }
+
+  #assessDamage(roadBorders) {
+    // private method
+    for (let i = 0; i < roadBorders.length; i++) {
+      // for each road border
+      if (polysIntersect(this.polygon, roadBorders[i])) {
+        // if the car intersects the road border
+        return true;
+      }
+    }
+    return false;
+  }
+
+  #createPolygon() {
+    // private method
+    const points = []; // array of points
+    const radius = Math.hypot(this.width, this.height) / 2; // get the radius
+    const alpha = Math.atan2(this.width, this.height); // get the angle between the center of the car and the top right corner
+    points.push({
+      // add the points to the array
+      x: this.x - Math.sin(this.angle - alpha) * radius, // x position
+      y: this.y - Math.cos(this.angle - alpha) * radius, // y position
+    });
+    points.push({
+      x: this.x - Math.sin(this.angle + alpha) * radius,
+      y: this.y - Math.cos(this.angle + alpha) * radius,
+    });
+    points.push({
+      x: this.x - Math.sin(Math.PI + this.angle - alpha) * radius,
+      y: this.y - Math.cos(Math.PI + this.angle - alpha) * radius,
+    });
+    points.push({
+      x: this.x - Math.sin(Math.PI + this.angle + alpha) * radius,
+      y: this.y - Math.cos(Math.PI + this.angle + alpha) * radius,
+    });
+    return points; // return the array
   }
 
   #move() {
@@ -65,20 +108,34 @@ class Car {
   }
 
   draw(ctx) {
-    ctx.save(); // save the current state of the canvas
-    ctx.translate(this.x, this.y); // move the canvas to the car's position
-    ctx.rotate(-this.angle); // rotate the canvas
-    ctx.beginPath(); // begin drawing
-    ctx.rect(
-      // draw a rectangle
-      -this.width / 2,
-      -this.height / 2,
-      this.width,
-      this.height
-    );
-    ctx.fill();
+    // ctx.save(); // save the current state of the canvas
+    // ctx.translate(this.x, this.y); // move the canvas to the car's position
+    // ctx.rotate(-this.angle); // rotate the canvas
+    // ctx.beginPath(); // begin drawing
+    // ctx.rect(
+    //   // draw a rectangle
+    //   -this.width / 2,
+    //   -this.height / 2,
+    //   this.width,
+    //   this.height
+    // );
+    // ctx.fill();
 
-    ctx.restore(); // restore the canvas to the last saved state
+    // ctx.restore(); // restore the canvas to the last saved state
+
+    if (this.damaged) {
+      // if the car is damaged
+      ctx.fillStyle = "#6e6e6e"; // set the color to gray
+    } else {
+      ctx.fillStyle = "black"; // set the color to black
+    }
+
+    ctx.beginPath(); // begin drawing
+    ctx.moveTo(this.polygon[0].x, this.polygon[0].y); // move to the first point
+    for (let i = 1; i < this.polygon.length; i++) {
+      ctx.lineTo(this.polygon[i].x, this.polygon[i].y);
+    }
+    ctx.fill(); // finish drawing
 
     this.sensor.draw(ctx); // draw the sensor
   }

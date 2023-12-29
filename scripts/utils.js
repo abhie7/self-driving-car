@@ -26,3 +26,23 @@ function getIntersection(A, B, C, D) {
   }
   return null; // return null if there is no intersection
 }
+
+function polysIntersect(poly1, poly2) {
+  // poly1 and poly2 are arrays of points
+  for (let i = 0; i < poly1.length; i++) {
+    // for each point in poly1
+    for (let j = 0; j < poly2.length; j++) {
+      // for each point in poly2
+      const touch = getIntersection(
+        // check if the lines between the points intersect
+        poly1[i],
+        poly1[(i + 1) % poly1.length],
+        poly2[j],
+        poly2[(j + 1) % poly2.length]
+      );
+      if (touch) {
+        return true;
+      }
+    }
+  }
+}
