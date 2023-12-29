@@ -4,16 +4,17 @@ Project Description
 
 ### Todo
 
-- [ ] Genetic Algorithms
-- [ ] Neural Networks
+- [ ] Genetic Algorithms  
 
 ### In Progress
 
-- [ ] Adding Traffic
+- [ ] Neural Networks  
 
 ### Done ✓
 
-- [x] Collision Detection
-- [x] Sensors - Ray Casting
-- [x] Road Generation using Linear Interpolation
-- [x] Car Physics
+- [x] Adding Traffic  
+- [x] Collision Detection  
+- [x] Sensors - Ray Casting  
+- [x] Road Generation using Linear Interpolation  
+- [x] Car Physics  
+
