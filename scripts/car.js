@@ -12,6 +12,8 @@ class Car {
     this.angle = 0; // angle of the car
     this.damaged = false; // is the car damaged?
 
+    this.useBrain = controlType == "AI"; // is the car controlled by the AI?
+
     if (controlType != "DUMMY") {
       // if the car is not a dummy
       this.sensor = new Sensor(this); // sensor object
@@ -38,6 +40,13 @@ class Car {
       ); // get the offsets
       const outputs = NeuralNetwork.feedForward(offsets, this.brain); // feed forward the offsets
       console.log(outputs);
+
+      if (this.useBrain) {
+        this.controls.forward = outputs[0];
+        this.controls.right = outputs[1];
+        this.controls.left = outputs[2];
+        this.controls.reverse = outputs[3];
+      }
     }
   }
 
