@@ -14,8 +14,7 @@ class Car {
     this.controls = new Controls(); // controls object
   }
 
-  update() {
-    // update the car's position (method)
+  update() { // update the car's position (method)
     this.#move();
   }
 
@@ -31,8 +30,7 @@ class Car {
     if (this.speed > this.maxSpeed) {
       this.speed = this.maxSpeed; // speed = maxSpeed
     }
-    if (this.speed < -this.maxSpeed / 2) {
-      //for reverse
+    if (this.speed < -this.maxSpeed / 2) { //for reverse
       this.speed = -this.maxSpeed / 2; // limit speed
     }
 
@@ -42,8 +40,7 @@ class Car {
     if (this.speed < 0) {
       this.speed += this.friction; // apply friction
     }
-    if (Math.abs(this.speed) < this.friction) {
-      // if the speed is less than the friction
+    if (Math.abs(this.speed) < this.friction) { // if the speed is less than the friction
       this.speed = 0;
     }
 
