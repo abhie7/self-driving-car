@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Helvetica";
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #4d4d4d;
+  overflow: hidden;
+  text-align: center;
+}
+
+#myCanvas {
+  background-color: #808080;
+}
