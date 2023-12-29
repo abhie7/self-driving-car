@@ -11,11 +11,14 @@ class Car {
     this.friction = 0.05; // friction of the car
     this.angle = 0; // angle of the car
 
+    this.sensor = new Sensor(this); // sensor object
     this.controls = new Controls(); // controls object
   }
 
-  update() { // update the car's position (method)
+  update(roadBorders) {
+    // update the car's position (method)
     this.#move();
+    this.sensor.update(roadBorders);
   }
 
   #move() {
@@ -30,7 +33,8 @@ class Car {
     if (this.speed > this.maxSpeed) {
       this.speed = this.maxSpeed; // speed = maxSpeed
     }
-    if (this.speed < -this.maxSpeed / 2) { //for reverse
+    if (this.speed < -this.maxSpeed / 2) {
+      //for reverse
       this.speed = -this.maxSpeed / 2; // limit speed
     }
 
@@ -40,7 +44,8 @@ class Car {
     if (this.speed < 0) {
       this.speed += this.friction; // apply friction
     }
-    if (Math.abs(this.speed) < this.friction) { // if the speed is less than the friction
+    if (Math.abs(this.speed) < this.friction) {
+      // if the speed is less than the friction
       this.speed = 0;
     }
 
@@ -74,5 +79,7 @@ class Car {
     ctx.fill();
 
     ctx.restore(); // restore the canvas to the last saved state
+
+    this.sensor.draw(ctx); // draw the sensor
   }
 }
