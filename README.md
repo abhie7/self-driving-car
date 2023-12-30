@@ -1,4 +1,4 @@
-1# Self Driving Car Simulation
+# Self Driving Car Simulation
 
 ## Overview
 
