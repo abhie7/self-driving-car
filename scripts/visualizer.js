@@ -38,22 +38,19 @@ class Visualizer {
 
     const { inputs, outputs, weights, biases } = level; // get the inputs and outputs of the level
 
-    // Optimize connections
-    Visualizer.optimizeConnections(level);
-
     // draw the connections
     for (let i = 0; i < inputs.length; i++) {
       for (let j = 0; j < outputs.length; j++) {
-        const x1 = lerp(
-          left,
-          right,
-          inputs.length == 1 ? 0.5 : i / (inputs.length - 1)
-        );
-        const x2 = lerp(
-          left,
-          right,
-          outputs.length == 1 ? 0.5 : j / (outputs.length - 1)
-        );
+        // const x1 = lerp(
+        //   left,
+        //   right,
+        //   inputs.length == 1 ? 0.5 : i / (inputs.length - 1)
+        // );
+        // const x2 = lerp(
+        //   left,
+        //   right,
+        //   outputs.length == 1 ? 0.5 : j / (outputs.length - 1)
+        // );
         ctx.beginPath();
         ctx.moveTo(Visualizer.#getNodeX(inputs, i, left, right), bottom);
         ctx.lineTo(Visualizer.#getNodeX(outputs, j, left, right), top);
@@ -121,20 +118,5 @@ class Visualizer {
       right,
       nodes.length == 1 ? 0.5 : index / (nodes.length - 1)
     );
-  }
-
-  static optimizeConnections(level) {
-    for (let i = 0; i < level.outputs.length; i++) {
-      let sum = 0;
-      for (let j = 0; j < level.inputs.length; j++) {
-        sum += level.inputs[j] * level.weights[j][i];
-      }
-
-      if (sum > level.biases[i]) {
-        level.outputs[i] = 1;
-      } else {
-        level.outputs[i] = 0;
-      }
-    }
   }
 }

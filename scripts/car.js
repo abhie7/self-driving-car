@@ -1,5 +1,13 @@
 class Car {
-  constructor(x, y, width, height, controlType, maxSpeed = 3) {
+  constructor(
+    x,
+    y,
+    width,
+    height,
+    controlType,
+    maxSpeed = 3,
+    color = "#4242f5"
+  ) {
     this.x = x; // x position
     this.y = y; // y position
     this.width = width; // width of the car
@@ -22,6 +30,23 @@ class Car {
       );
     }
     this.controls = new Controls(controlType); // controls object
+
+    this.img = new Image(); // image of the car
+    this.img.src = "../styles/car.png";
+
+    this.mask = document.createElement("canvas");
+    this.mask.width = this.width;
+    this.mask.height = this.height;
+
+    const maskCtx = this.mask.getContext("2d");
+    this.img.onload = () => {
+      maskCtx.fillStyle = color;
+      maskCtx.rect(0, 0, this.width, this.height);
+      maskCtx.fill();
+
+      maskCtx.globalCompositeOperation = "destination-atop";
+      maskCtx.drawImage(this.img, 0, 0, this.width, this.height);
+    };
   }
 
   update(roadBorders, traffic) {
@@ -135,38 +160,32 @@ class Car {
     // this.y -= this.speed; // move the car
   }
 
-  draw(ctx, color, drawSensor = false) {
-    // ctx.save(); // save the current state of the canvas
-    // ctx.translate(this.x, this.y); // move the canvas to the car's position
-    // ctx.rotate(-this.angle); // rotate the canvas
-    // ctx.beginPath(); // begin drawing
-    // ctx.rect(
-    //   // draw a rectangle
-    //   -this.width / 2,
-    //   -this.height / 2,
-    //   this.width,
-    //   this.height
-    // );
-    // ctx.fill();
-
-    // ctx.restore(); // restore the canvas to the last saved state
-
-    if (this.damaged) {
-      // if the car is damaged
-      ctx.fillStyle = "#6e6e6e"; // set the color to gray
-    } else {
-      ctx.fillStyle = color; // set the color to black
-    }
-
-    ctx.beginPath(); // begin drawing
-    ctx.moveTo(this.polygon[0].x, this.polygon[0].y); // move to the first point
-    for (let i = 1; i < this.polygon.length; i++) {
-      ctx.lineTo(this.polygon[i].x, this.polygon[i].y);
-    }
-    ctx.fill(); // finish drawing
-
+  // draw the car (method)
+  draw(ctx, drawSensor = false) {
     if (this.sensor && drawSensor) {
-      this.sensor.draw(ctx); // draw the sensor
+      this.sensor.draw(ctx);
     }
+
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(-this.angle);
+    if (!this.damaged) {
+      ctx.drawImage(
+        this.mask,
+        -this.width / 2,
+        -this.height / 2,
+        this.width,
+        this.height
+      );
+      ctx.globalCompositeOperation = "multiply";
+    }
+    ctx.drawImage(
+      this.img,
+      -this.width / 2,
+      -this.height / 2,
+      this.width,
+      this.height
+    );
+    ctx.restore();
   }
 }

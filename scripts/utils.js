@@ -50,9 +50,14 @@ function polysIntersect(poly1, poly2) {
 
 function getRGBA(value) {
   // get the color of a value
-  const alpha = Math.abs(value);
+  const alpha = Math.min(Math.abs(value) * 4, 1); // double the opacity, but don't let it exceed 1
   const R = value < 0 ? 0 : 255;
   const G = R;
   const B = value > 0 ? 0 : 255;
   return "rgba(" + R + "," + G + "," + B + "," + alpha + ")";
+}
+
+function getRandomColor() {
+  const hue = 290 + Math.random() * 260;
+  return "hsl(" + hue + ", 100%, 60%)";
 }
