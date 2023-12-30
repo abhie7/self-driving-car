@@ -63,9 +63,9 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-- *Radu Mariescu-Istodor*
--- [Website](https://radufromfinland.com/)
--- [Youtube](https://www.youtube.com/@Radu)
+- **Radu Mariescu-Istodor**
+[Website](https://radufromfinland.com/)
+[Youtube](https://www.youtube.com/@Radu)
 
 ## Contact
 
