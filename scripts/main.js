@@ -1,3 +1,8 @@
+document.getElementById("carCount").value =
+  localStorage.getItem("carCount") || 100;
+document.getElementById("mutationAmount").value =
+  localStorage.getItem("mutationAmount") || "0.05";
+
 const carCanvas = document.getElementById("carCanvas");
 carCanvas.width = 200;
 const networkCanvas = document.getElementById("networkCanvas");
@@ -8,14 +13,18 @@ const networkCtx = networkCanvas.getContext("2d"); // ctx is the object that all
 
 const road = new Road(carCanvas.width / 2, carCanvas.width * 0.9);
 
-const N = 100; // number of cars
+const N = Number(document.getElementById("carCount").value); // number of cars
 const cars = generateCars(N); // array of cars (traffic)
+
 let bestCar = cars[0]; // the best car
 if (localStorage.getItem("bestBrain")) {
   for (let i = 0; i < cars.length; i++) {
     cars[i].brain = JSON.parse(localStorage.getItem("bestBrain"));
     if (i != 0) {
-      NeuralNetwork.mutate(cars[i].brain, 0.1); //mutation amount
+      NeuralNetwork.mutate(
+        cars[i].brain,
+        Number(document.getElementById("mutationAmount").value)
+      ); //mutation amount
     }
   }
 }
@@ -30,6 +39,10 @@ const traffic = [
   new Car(road.getLaneCenter(2), -700, 30, 50, "DUMMY", 2, getRandomColor()),
   new Car(road.getLaneCenter(1), -900, 30, 50, "DUMMY", 2, getRandomColor()),
   new Car(road.getLaneCenter(2), -900, 30, 50, "DUMMY", 2, getRandomColor()),
+  new Car(road.getLaneCenter(0), -1100, 30, 50, "DUMMY", 2, getRandomColor()),
+  new Car(road.getLaneCenter(2), -1100, 30, 50, "DUMMY", 2, getRandomColor()),
+  new Car(road.getLaneCenter(0), -1300, 30, 50, "DUMMY", 2, getRandomColor()),
+  new Car(road.getLaneCenter(1), -1300, 30, 50, "DUMMY", 2, getRandomColor()),
 ]; // array of cars (traffic)
 
 animate();
@@ -39,7 +52,13 @@ function save() {
 }
 
 function discard() {
-  localStorage.removeItem("bestBrain");
+  if (
+    confirm(
+      "This will remove the car's brain & you'll need to train the system again. Are you sure you want to do that?"
+    ) == true
+  ) {
+    localStorage.removeItem("bestBrain");
+  }
 }
 
 function generateCars(N) {

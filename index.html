@@ -3,17 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Self-Driving car</title>
+    <title>Self-Driving Car Simulation</title>
     <link rel="shortcut icon" href="./styles/favicon.png" type="image/x-icon" />
     <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
     <canvas id="carCanvas"></canvas>
+    
     <div id="verticalButtons">
-      <button onclick="save()">✅</button>
-      <button onclick="discard()">🗑️</button>
+      <button
+      onclick="save()"
+        title="This will update the car's brain. Are you sure you want to do that?"
+      >
+        ✅
+      </button>
+      <button
+        onclick="discard()"
+        title="This will remove the car's brain & you'll need to train the system again. Are you sure you want to do that?"
+      >
+        🗑️
+      </button>
+      <div class="dropdown">
+        🧬
+        <select
+          name="mutationAmount"
+          id="mutationAmount"
+          onchange="localStorage.setItem('mutationAmount', this.value)"
+          title="Mutation amount"
+        >
+          <option value="0.01">0.01</option>
+          <option value="0.02">0.02</option>
+          <option value="0.05" selected>0.05</option>
+          <option value="0.075">0.075</option>
+          <option value="0.1">0.1</option>
+          <option value="0.15">0.15</option>
+          <option value="0.2">0.2</option>
+        </select>
+      </div>
+      <div class="dropdown">
+        🚙
+        <select
+          name="carCount"
+          id="carCount"
+          onchange="localStorage.setItem('carCount', this.value)"
+          title="Number of cars"
+        >
+          <option value="1">1</option>
+          <option value="10">10</option>
+          <option value="100" selected>100</option>
+          <option value="300">300</option>
+        </select>
+      </div>
+      <button
+        id="refreshButton"
+        onclick="location.reload()"
+        title="Reload Simulation"
+      >
+        🔄
+      </button>
     </div>
+
     <canvas id="networkCanvas"></canvas>
+
     <script src="./scripts/visualizer.js"></script>
     <script src="./scripts/network.js"></script>
     <script src="./scripts/sensor.js"></script>
