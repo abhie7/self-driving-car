@@ -18,6 +18,29 @@ class NeuralNetwork {
     }
     return output; // return the output
   }
+
+  static mutate(network, amount = 1) {
+    // mutate the network
+    network.levels.forEach((level) => {
+      // for each level
+      for (let i = 0; i < level.biases.length; i++) {
+        // for each bias
+        level.biases[i] = lerp(level.biases[i], Math.random() * 2 - 1, amount); // mutate the bias
+      }
+      for (let i = 0; i < level.weights.length; i++) {
+        // for each weight
+        for (let j = 0; j < level.weights[i].length; j++) {
+          // for each weight
+          level.weights[i][j] = lerp(
+            // mutate the weight
+            level.weights[i][j], // current weight
+            Math.random() * 2 - 1, // random weight
+            amount // amount to mutate
+          );
+        }
+      }
+    });
+  }
 }
 
 class Level {
