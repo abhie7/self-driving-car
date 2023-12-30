@@ -11,7 +11,28 @@ body {
   width: 100%;
   background-color: #4d4d4d;
   overflow: hidden;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#verticalButtons {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #000000;
+}
+
+button {
+  border: none;
+  border-radius: 3px;
+  padding: 5px 5px 5px 5px;
+  margin: 5px 0px 5px 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #a2a2a2;
 }
 
 #carCanvas {

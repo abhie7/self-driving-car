@@ -8,8 +8,7 @@ Self Driving Car using Neural Network and AI
 
 ### In Progress
 
-- [ ] Neural Networks
-- [ ] Creating the Visualizer
+- [ ] Parallelization
 
 ### Done ✓
 
@@ -18,3 +17,5 @@ Self Driving Car using Neural Network and AI
 - [x] Sensors - Ray Casting
 - [x] Road Generation using Linear Interpolation
 - [x] Car Physics
+- [x] Creating the Visualizer
+- [x] Neural Networks

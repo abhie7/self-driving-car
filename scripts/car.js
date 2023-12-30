@@ -135,7 +135,7 @@ class Car {
     // this.y -= this.speed; // move the car
   }
 
-  draw(ctx, color) {
+  draw(ctx, color, drawSensor = false) {
     // ctx.save(); // save the current state of the canvas
     // ctx.translate(this.x, this.y); // move the canvas to the car's position
     // ctx.rotate(-this.angle); // rotate the canvas
@@ -165,7 +165,7 @@ class Car {
     }
     ctx.fill(); // finish drawing
 
-    if (this.sensor) {
+    if (this.sensor && drawSensor) {
       this.sensor.draw(ctx); // draw the sensor
     }
   }
