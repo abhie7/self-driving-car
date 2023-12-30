@@ -4,11 +4,11 @@ Self Driving Car using Neural Network and AI
 
 ### Todo
 
-- [ ] Genetic Algorithms
+
 
 ### In Progress
 
-- [ ] Parallelization
+
 
 ### Done ✓
 
@@ -19,3 +19,5 @@ Self Driving Car using Neural Network and AI
 - [x] Car Physics
 - [x] Creating the Visualizer
 - [x] Neural Networks
+- [x] Parallelization
+- [x] Genetic Algorithms
