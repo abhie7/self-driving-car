@@ -32,7 +32,7 @@ class Car {
     this.controls = new Controls(controlType); // controls object
 
     this.img = new Image(); // image of the car
-    this.img.src = "../styles/car.png";
+    this.img.src = "./self-driving-car/styles/car.png";
 
     this.mask = document.createElement("canvas");
     this.mask.width = this.width;
