@@ -4,7 +4,7 @@
 
 The Self Driving Car Simulation and Visualizer is a project centered around the implementation of a neural network for self-driving car behavior.
 
-!(https://imgur.com/wcA5jjc)
+![](https://imgur.com/wcA5jjc)
 
 ## Features
 
