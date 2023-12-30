@@ -39,12 +39,12 @@ class Car {
         s == null ? 0 : 1 - s.offset
       ); // get the offsets
       const outputs = NeuralNetwork.feedForward(offsets, this.brain); // feed forward the offsets
-      console.log(outputs);
+      // console.log(outputs);
 
       if (this.useBrain) {
         this.controls.forward = outputs[0];
-        this.controls.right = outputs[1];
-        this.controls.left = outputs[2];
+        this.controls.left = outputs[1];
+        this.controls.right = outputs[2];
         this.controls.reverse = outputs[3];
       }
     }

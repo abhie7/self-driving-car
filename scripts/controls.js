@@ -1,8 +1,8 @@
 class Controls {
   constructor(type) {
     this.forward = false; // forward key
-    this.right = false; // right key
     this.left = false; // left key
+    this.right = false; // right key
     this.reverse = false; // backward key
 
     switch (type) {
