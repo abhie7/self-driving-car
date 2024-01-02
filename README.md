@@ -45,7 +45,7 @@ Genetic algorithms are used to optimize and train the neural network's parameter
 To set up the project locally, follow these steps:
 
 1. Clone this repository:
-```git clone https://github.com/your-username/self-driving-car-simulation.git```
+```git clone https://github.com/abhie7/self-driving-car-simulation.git```
 2. Navigate to the project directory:
 ```cd self-driving-car-simulation```
 
